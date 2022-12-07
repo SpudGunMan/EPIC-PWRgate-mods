@@ -17,7 +17,7 @@ West Mountain Radio EPIC PWRgate Reporting Tool
 
 
 Attached to Serial/dev/ttyACM0 Telemetry data:
-Traceback (most recent call last):y 14.03V Status TrickleSolar Voltage0.04V
+Batterv 13.16V.0.00A Power Supolv 13.99v Status Trickle Solar Voltage 0.04V
 
 
 ```
