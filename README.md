@@ -1,7 +1,19 @@
 # EPIC-PWRgate-mods
- West Mountain Radio EPIC PWRgate Mods
+ West Mountain Radio EPIC [PWRgate](https://www.westmountainradio.com/product_info.php?products_id=epic-pwrgate) Mods
 
 
+```
+West Mountain Radio EPIC PWRgate Reporting Tool
+
+Attached to Serial/dev/ttyACM0 Telemetry data:
+Batterv 13.16V.0.00A Power Supolv 13.99v Status Trickle Solar Voltage 0.04V
+
+```
+
+## Use
+$ python3 [PWRgate-Status.py](PWRgate-Status.py)
+
+### Serial Data
 /dev/ttyACM0 at 9600 baud
 
 on connect to device it will typically catch the letter 's' string which puts you into setup, handles escaping the menu and handles parsing of data for some other funky text output bugs in firmware
@@ -9,18 +21,8 @@ on connect to device it will typically catch the letter 's' string which puts yo
 - battery value has extra space
 - unplug power supply and the output is ugly so we clean that up
 
-$ python3 [PWRgate-Status.py](PWRgate-Status.py)
 
-
-```
-West Mountain Radio EPIC PWRgate Reporting Tool
-
-
-Attached to Serial/dev/ttyACM0 Telemetry data:
-Batterv 13.16V.0.00A Power Supolv 13.99v Status Trickle Solar Voltage 0.04V
-
-
-```
+Tested on the following firmware on raspberry pi woith python 3
 
 ```
 West Mountain Radio EPIC PWRgate R2 1.32
