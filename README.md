@@ -45,5 +45,5 @@ Battery Save Mode (Y,N) < N >?
 ```
 
 
-### Additional projects:
-- In Go https://github.com/arodland/pwrgate-monitor
+### Alternative projects:
+- In Go! Language https://github.com/arodland/pwrgate-monitor
