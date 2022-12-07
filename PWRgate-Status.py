@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# v1.2 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
+# v1.21 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
 from serial import *
 
 serialPort = "/dev/ttyACM0" # serial port for linux
@@ -33,8 +33,8 @@ while True:
             ser.write('n\r'.encode()) # send a 'n' and carriage return to the device to select no
         else: # if not a menu then parse data
 
-            #normal (battery charging, PS connected, solar connected)
-            parsed_line = line.replace(',  ',',').replace('= ','=').split() # split line into a list
+            # cleans up some typo in R2 1.32 split line into a list
+            parsed_line = line.replace(',  ',',').replace('= ','=').split() 
 
             # extract values for use
             status = (parsed_line[0])
@@ -48,17 +48,17 @@ while True:
                 #temp = (parsed_line[5].replace('Temp=',''))
             elif status.__contains__('Bad'): # handle when too hot
                 status = "Temp-Warning"
-                power_supply = (parsed_line[1].replace('PS=',''))
-                battery = (parsed_line[2].replace('Bat=',''))
-                solar_voltage = (parsed_line[3].replace('Sol=',''))
-                uptime = (parsed_line[4].replace('Min=',''))
-                #temp = (parsed_line[4].replace('Temp=',''))
+                power_supply = (parsed_line[2].replace('PS=',''))
+                battery = (parsed_line[3].replace('Bat=',''))
+                solar_voltage = (parsed_line[4].replace('Sol=',''))
+                uptime = (parsed_line[5].replace('Min=',''))
+                #temp = (parsed_line[6].replace('Temp=',''))
             else: # handle when PS is on and connected (normal)
                 power_supply = (parsed_line[1].replace('PS=',''))
                 battery = (parsed_line[2].replace('Bat=',''))
                 solar_voltage = (parsed_line[3].replace('Sol=',''))
                 uptime = (parsed_line[4].replace('Min=',''))
-                #temp = (parsed_line[4].replace('Temp=',''))
+                #temp = (parsed_line[5].replace('Temp=',''))
     else:
         # check for menu which pops up when device is first connected sometimes
         if line.__contains__(':'):
