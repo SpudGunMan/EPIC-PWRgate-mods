@@ -43,3 +43,7 @@ Min charger idle (minutes):    <60>:
 Min supply voltage for charging in Volts:    <12.99>: 
 Battery Save Mode (Y,N) < N >? 
 ```
+
+
+### Additional projects:
+- In Go https://github.com/arodland/pwrgate-monitor

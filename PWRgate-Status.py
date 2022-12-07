@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# V 1.0 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
+# v1.1 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
 from serial import *
 
 serialPort = "/dev/ttyACM0" # serial port for linux
@@ -8,20 +8,21 @@ ser = Serial(serialPort , baudRate, timeout=1, writeTimeout=0) #ensure non-block
 ser.flushInput() #flush input buffer, discarding all its contents
 ser.flushOutput() #flush output buffer, aborting current output and discarding all that is in buffer
 
-# initialise variables
+# initialise variables as strings, for demo purposes
 battery=''
 power_supply=''
 solar_voltage=''
-min_voltage=''
+temp=''
 status=''
 line=''
 parsed_line=''
+uptime=''
 
 print("\n\nWest Mountain Radio EPIC PWRgate Reporting Tool\n\n")
 print("Attached to Serial" + ser.name + " Telemetry data:") #check which port was really used
 
 while True:
-
+    
     if ser.in_waiting> 0:
         line = ser.readline().decode('utf-8').rstrip() # read serial port and decode from binary array to ASCII
 
@@ -43,12 +44,21 @@ while True:
                 power_supply = (parsed_line[2].replace('PS=',''))
                 battery = (parsed_line[3].replace('Bat=',''))
                 solar_voltage = (parsed_line[4].replace('Sol=',''))
-                min_voltage = (parsed_line[5].replace('Min=',''))
-            else: # handle when PS is on and connected
+                uptime = (parsed_line[5].replace('Min=',''))
+                #temp = (parsed_line[5].replace('Temp=',''))
+            elif status.__contains__('Bad'): # handle when too hot
+                status = "Temp-Warning"
                 power_supply = (parsed_line[1].replace('PS=',''))
                 battery = (parsed_line[2].replace('Bat=',''))
                 solar_voltage = (parsed_line[3].replace('Sol=',''))
-                min_voltage = (parsed_line[4].replace('Min=',''))
+                uptime = (parsed_line[4].replace('Min=',''))
+                #temp = (parsed_line[4].replace('Temp=',''))
+            else: # handle when PS is on and connected (normal)
+                power_supply = (parsed_line[1].replace('PS=',''))
+                battery = (parsed_line[2].replace('Bat=',''))
+                solar_voltage = (parsed_line[3].replace('Sol=',''))
+                uptime = (parsed_line[4].replace('Min=',''))
+                #temp = (parsed_line[4].replace('Temp=',''))
 
     print("Battery " + battery + " Power Supply " + power_supply + " Status " + status + " Solar Voltage " + solar_voltage, end = "\r") # print to console
 
