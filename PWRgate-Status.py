@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# v1.1 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
+# v1.2 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
 from serial import *
 
 serialPort = "/dev/ttyACM0" # serial port for linux
@@ -23,7 +23,7 @@ print("Attached to Serial" + ser.name + " Telemetry data:") #check which port wa
 
 while True:
     
-    if ser.in_waiting> 0:
+    if ser.inWaiting() > 0: # check for data on serial port
         line = ser.readline().decode('utf-8').rstrip() # read serial port and decode from binary array to ASCII
 
         # check for menu which pops up when device is first connected sometimes
@@ -59,6 +59,12 @@ while True:
                 solar_voltage = (parsed_line[3].replace('Sol=',''))
                 uptime = (parsed_line[4].replace('Min=',''))
                 #temp = (parsed_line[4].replace('Temp=',''))
+    else:
+        # check for menu which pops up when device is first connected sometimes
+        if line.__contains__(':'):
+            ser.write('\r'.encode()) # send a carriage return to the device to exit menu
+        elif line.__contains__('?'):
+            ser.write('n\r'.encode()) # send a 'n' and carriage return to the device to select no
 
     print("Battery " + battery + " Power Supply " + power_supply + " Status " + status + " Solar Voltage " + solar_voltage, end = "\r") # print to console
 
