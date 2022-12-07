@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # V 1.0 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
 from serial import *
-import sys
 
 serialPort = "/dev/ttyACM0" # serial port for linux
 baudRate = 9600 # baud rate for device  (9600 is default)
