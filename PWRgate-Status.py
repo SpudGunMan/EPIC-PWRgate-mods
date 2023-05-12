@@ -1,12 +1,18 @@
 #!/usr/bin/python
-# v1.21 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
+# v1.30 Boilerplate West Mountain Radio EPIC PWRgate Telemetry Script
 from serial import *
 
 serialPort = "/dev/ttyACM0" # serial port for linux
 baudRate = 9600 # baud rate for device  (9600 is default)
-ser = Serial(serialPort , baudRate, timeout=1, writeTimeout=0) #ensure non-blocking
-ser.flushInput() #flush input buffer, discarding all its contents
-ser.flushOutput() #flush output buffer, aborting current output and discarding all that is in buffer
+
+try:
+    ser = Serial(serialPort , baudRate, timeout=1, writeTimeout=0) #ensure non-blocking
+    ser.flushInput() #flush input buffer, discarding all its contents
+    ser.flushOutput() #flush output buffer, aborting current output and discarding all that is in buffer
+except:
+    print("Failed to connect serial port " + serialPort + ". Exiting...")
+    exit()
+
 
 # initialise variables as strings, for demo purposes
 battery=''
