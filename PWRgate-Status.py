@@ -53,6 +53,13 @@ while True:
                 solar_voltage = (parsed_line[4].replace('Sol=',''))
                 uptime = (parsed_line[5].replace('Min=',''))
                 #temp = (parsed_line[6].replace('Temp=',''))
+            elif status.__contains__('Charged'): # handle when battery is charged
+                status = "Charged"
+                power_supply = (parsed_line[2].replace('PS=',''))
+                battery = (parsed_line[3].replace('Bat=',''))
+                solar_voltage = (parsed_line[4].replace('Sol=',''))
+                uptime = (parsed_line[5].replace('Min=',''))
+                #temp = (parsed_line[6].replace('Temp=',''))
             else: # handle when PS is on and connected (normal)
                 power_supply = (parsed_line[1].replace('PS=',''))
                 battery = (parsed_line[2].replace('Bat=',''))
@@ -66,7 +73,7 @@ while True:
         elif line.__contains__('?'):
             ser.write('n\r'.encode()) # send a 'n' and carriage return to the device to select no
 
-    print("Battery " + battery + " Power Supply " + power_supply + " Status " + status + " Solar Voltage " + solar_voltage, end = "\r") # print to console
+    print("Battery " + battery + " Status " + status + " Power Supply " + power_supply + " Solar Voltage " + solar_voltage, end = "\r") # print to console
 
 
 ser.close() # close port
