@@ -10,6 +10,12 @@ Batterv 13.16V.0.00A Power Supolv 13.99v Status Trickle Solar Voltage 0.04V
 
 ```
 
+## Install Dep's
+```
+apt install python3-pip
+python3 -m pip install -r requirements.txt
+```
+
 ## Use
 $ python3 [PWRgate-Status.py](PWRgate-Status.py)
 

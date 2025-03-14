@@ -43,35 +43,36 @@ while True:
             parsed_line = line.replace(',  ',',').replace('= ','=').split() 
 
             # extract values for use
-            status = (parsed_line[0])
+            if len(parsed_line) > 0:
+                status = (parsed_line[0])
 
-            if status.__contains__('PS'): # handle when PS is off and not connected
-                status = "Battery-Only"
-                power_supply = (parsed_line[2].replace('PS=',''))
-                battery = (parsed_line[3].replace('Bat=',''))
-                solar_voltage = (parsed_line[4].replace('Sol=',''))
-                uptime = (parsed_line[5].replace('Min=',''))
-                #temp = (parsed_line[5].replace('Temp=',''))
-            elif status.__contains__('Bad'): # handle when too hot
-                status = "Temp-Warning"
-                power_supply = (parsed_line[2].replace('PS=',''))
-                battery = (parsed_line[3].replace('Bat=',''))
-                solar_voltage = (parsed_line[4].replace('Sol=',''))
-                uptime = (parsed_line[5].replace('Min=',''))
-                #temp = (parsed_line[6].replace('Temp=',''))
-            elif status.__contains__('Charged'): # handle when battery is charged
-                status = "Charged"
-                power_supply = (parsed_line[2].replace('PS=',''))
-                battery = (parsed_line[3].replace('Bat=',''))
-                solar_voltage = (parsed_line[4].replace('Sol=',''))
-                uptime = (parsed_line[5].replace('Min=',''))
-                #temp = (parsed_line[6].replace('Temp=',''))
-            else: # handle when PS is on and connected (normal)
-                power_supply = (parsed_line[1].replace('PS=',''))
-                battery = (parsed_line[2].replace('Bat=',''))
-                solar_voltage = (parsed_line[3].replace('Sol=',''))
-                uptime = (parsed_line[4].replace('Min=',''))
-                #temp = (parsed_line[5].replace('Temp=',''))
+                if status.__contains__('PS'): # handle when PS is off and not connected
+                    status = "Battery-Only"
+                    power_supply = (parsed_line[2].replace('PS=',''))
+                    battery = (parsed_line[3].replace('Bat=',''))
+                    solar_voltage = (parsed_line[4].replace('Sol=',''))
+                    uptime = (parsed_line[5].replace('Min=',''))
+                    #temp = (parsed_line[5].replace('Temp=',''))
+                elif status.__contains__('Bad'): # handle when too hot
+                    status = "Temp-Warning"
+                    power_supply = (parsed_line[2].replace('PS=',''))
+                    battery = (parsed_line[3].replace('Bat=',''))
+                    solar_voltage = (parsed_line[4].replace('Sol=',''))
+                    uptime = (parsed_line[5].replace('Min=',''))
+                    #temp = (parsed_line[6].replace('Temp=',''))
+                elif status.__contains__('Charged'): # handle when battery is charged
+                    status = "Charged"
+                    power_supply = (parsed_line[2].replace('PS=',''))
+                    battery = (parsed_line[3].replace('Bat=',''))
+                    solar_voltage = (parsed_line[4].replace('Sol=',''))
+                    uptime = (parsed_line[5].replace('Min=',''))
+                    #temp = (parsed_line[6].replace('Temp=',''))
+                else: # handle when PS is on and connected (normal)
+                    power_supply = (parsed_line[1].replace('PS=',''))
+                    battery = (parsed_line[2].replace('Bat=',''))
+                    solar_voltage = (parsed_line[3].replace('Sol=',''))
+                    uptime = (parsed_line[4].replace('Min=',''))
+                    #temp = (parsed_line[5].replace('Temp=',''))
     else:
         # check for menu which pops up when device is first connected sometimes
         if line.__contains__(':'):
